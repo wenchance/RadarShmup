@@ -87,6 +87,8 @@
 -define:UNITY_EDITOR_OSX
 -define:UNITY_TEAM_LICENSE
 -define:CROSS_PLATFORM_INPUT
+'Assets/Scripts/Cursor.cs'
+'Assets/Scripts/DestroyByBoundary.cs'
 'Assets/Scripts/Mover.cs'
 'Assets/Scripts/PlayerController.cs'
 -r:'/Applications/Unity/Unity.app/Contents/Mono/lib/mono/unity/System.Runtime.Serialization.dll'

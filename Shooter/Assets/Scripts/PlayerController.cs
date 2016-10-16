@@ -21,6 +21,8 @@ public class PlayerController : MonoBehaviour
 
 	private float nextFire;
 
+	public Camera cam;
+
 
 	void Start ()
 	{
@@ -28,16 +30,35 @@ public class PlayerController : MonoBehaviour
 	}
 
 
+
 	void Update ()
 	{
 		if (Input.GetButton ("Fire1") && Time.time > nextFire) 
 		{
+			Vector3 mousePos = cam.ScreenToWorldPoint(Input.mousePosition);
+			mousePos.y = 0;
+
+			Vector3 relMousePos = mousePos - shotSpawn.position;
+
+			float rotation = Mathf.Acos(Mathf.Abs(relMousePos.z) / relMousePos.magnitude) * 180 / Mathf.PI; //arccos rel.z, rel.abs
+
+			if (relMousePos.x / relMousePos.z < 0)
+			{
+				rotation = 180 - rotation;
+			}
+			if (relMousePos.x > 0)
+			{
+				rotation += 180;
+			}
+
+			Quaternion rotationQ = Quaternion.Euler(0, rotation, 0);
+
 			nextFire = Time.time + fireRate;
-//			GameObject clone = 
-			Instantiate (shot, shotSpawn.position, shotSpawn.rotation); //as GameObject;
+			// GameObject clone = 
+			Instantiate (shot, shotSpawn.position, rotationQ); //as GameObject;
 		}
 	}
-	
+
 
 
 	void FixedUpdate()
