@@ -13,6 +13,8 @@ public class IdentSwitch : MonoBehaviour {
 
 	private Transform player;
 
+	public float sightRadius = 10f;
+
 	public bool hasbeenpinged = false;
 
 	// Use this for initialization
@@ -23,7 +25,7 @@ public class IdentSwitch : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		float dist = Vector3.Distance (player.position, transform.position);
-		if (dist <= 5f)
+		if (dist <= sightRadius)
 			IDFF ();
 	}
 

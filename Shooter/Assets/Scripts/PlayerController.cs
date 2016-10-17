@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 [System.Serializable]
 
@@ -22,6 +23,7 @@ public class PlayerController : MonoBehaviour
 	private float nextFire;
 
 	public Camera cam;
+	public Text shootCooldown;
 
 
 	void Start ()
@@ -33,6 +35,15 @@ public class PlayerController : MonoBehaviour
 
 	void Update ()
 	{
+		int timeLeft;
+		if (Time.time < nextFire) {
+			shootCooldown.color = Color.red;
+			shootCooldown.text = "Reloading";
+		} else {
+			shootCooldown.color = Color.green;
+			shootCooldown.text = "Armed";
+		}
+
 		if (Input.GetButton ("Fire1") && Time.time > nextFire) 
 		{
 			Vector3 mousePos = cam.ScreenToWorldPoint(Input.mousePosition);
