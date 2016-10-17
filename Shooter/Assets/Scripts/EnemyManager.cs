@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+
 public class EnemyManager : MonoBehaviour {
 
 	public GameObject identity;
@@ -23,9 +24,26 @@ public class EnemyManager : MonoBehaviour {
 	public Transform target;
 	private float initialDistance;
 
+	public GUIText restartText;
+	public GUIText gameOverText;
+
+	//public GUIText killsText;
+	//private int kills;
+
+	private bool gameOver;
+	private bool restart;
+
+
 
 	// Use this for initialization
 	void Start () {
+		/*gameOver = false;
+		restart = false;
+		restartText.text = "";
+		gameOverText.text = "";*/
+		/*kills = 0;
+		UpdateKills ();*/
+
 		initialDistance = Vector3.Distance (target.position, transform.position);
 	}
 	
@@ -42,10 +60,28 @@ public class EnemyManager : MonoBehaviour {
 		if (spawnRate < maxSpawnRate) {
 			spawnRate = maxSpawnRate;
 		}
+
+		/*if (gameOver) {
+			restartText.text = "Press 'R' for Restart";
+		}*/
 	}
 
 	void OnDrawGizmos (){
 		Gizmos.color = Color.yellow;
 		Gizmos.DrawLine (new Vector3(transform.position.x - edgeWidth / 2.0f, transform.position.y, transform.position.z + topEdge), new Vector3(transform.position.x + edgeWidth / 2.0f, transform.position.y, transform.position.z + topEdge));
 	}
+
+	/*public void AddKills (int newKillsValue){
+		kills += newKillsValue;
+		UpdateKills ();
+	}
+
+	void UpdateKills () {
+		killsText.text = "Kills: " + kills;
+	}*/
+
+	/*public void GameOver (){
+		gameOverText.text = "Mission Failure";
+		gameOver = true;
+	}*/
 }

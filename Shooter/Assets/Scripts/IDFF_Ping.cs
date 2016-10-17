@@ -14,9 +14,11 @@ public class IDFF_Ping : MonoBehaviour {
 
 	public Text IDFFcoolDown;
 
+	private AudioSource audioSource;
+
 	// Use this for initialization
 	void Start () {
-	
+		audioSource = GetComponent<AudioSource > ();
 	}
 	
 	// Update is called once per frame
@@ -26,6 +28,7 @@ public class IDFF_Ping : MonoBehaviour {
 		{
 			StartPing ();
 			Debug.Log ("PIIIIIIIING", this);
+			audioSource.Play ();
 		}
 
 		if (cooldownTimer > 0f) {

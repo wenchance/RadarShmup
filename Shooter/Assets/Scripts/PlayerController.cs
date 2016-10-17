@@ -12,7 +12,7 @@ public class Boundary
 
 public class PlayerController : MonoBehaviour 
 {
-	private Rigidbody rb;
+	private Rigidbody rb; 
 	public float speed;
 	public Boundary boundary;
 
@@ -35,7 +35,6 @@ public class PlayerController : MonoBehaviour
 
 	void Update ()
 	{
-		int timeLeft;
 		if (Time.time < nextFire) {
 			shootCooldown.color = Color.red;
 			shootCooldown.text = "Reloading";
@@ -68,6 +67,7 @@ public class PlayerController : MonoBehaviour
 			// GameObject clone = 
 			Instantiate (shot, shotSpawn.position, rotationQ); //as GameObject;
 		}
+			
 	}
 
 

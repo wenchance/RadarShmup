@@ -17,9 +17,12 @@ public class IdentSwitch : MonoBehaviour {
 
 	public bool hasbeenpinged = false;
 
+	private AudioSource audioSource;
+
 	// Use this for initialization
 	void Start () {
 		player = GameObject.Find ("Player").GetComponent<Transform>() as Transform;
+		audioSource = GetComponent<AudioSource > ();
 	}
 	
 	// Update is called once per frame
@@ -39,6 +42,7 @@ public class IdentSwitch : MonoBehaviour {
 		if (randomizer >= .5f) {
 			Hostile.SetActive (true);
 			gameObject.GetComponent<AutoMoveAndRotate> ().enabled = false;
+			audioSource.Play ();
 		} else
 			Friendly.SetActive (true);
 	}
