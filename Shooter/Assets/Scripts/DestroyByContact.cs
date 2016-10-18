@@ -3,10 +3,10 @@ using System.Collections;
 
 public class DestroyByContact : MonoBehaviour 
 {
-	//public int killsValue;
-	//private EnemyManager enemyManager;
+    //public int killsValue;
+    //private EnemyManager enemyManager;
 
-	/*void Start () {
+    /*void Start () {
 		GameObject enemyManagerObject = GameObject.FindWithTag ("EnemyManager");
 		if (enemyManager != null) {
 			enemyManager = enemyManagerObject.GetComponent <EnemyManager> ();
@@ -16,26 +16,45 @@ public class DestroyByContact : MonoBehaviour
 		}
 	}*/
 
+    private ScoreManager score;
+    private GameManager game;
+
+    void Start ()
+    {
+        score = FindObjectOfType<ScoreManager>();
+        game = FindObjectOfType<GameManager>();
+    }
+
 
 	void OnTriggerEnter(Collider other)
 	{
-		if (other.gameObject.tag == "Boundary") 
-		{
-			return;
-		}
-
-		if (other.gameObject.tag == "Target") 
-		{
-			return;
-		}
-
-		if (other.gameObject.tag == gameObject.tag) {
-			return;
-		}
-			
-		Destroy (other.gameObject);
-		Destroy (gameObject);
-		Debug.Log (other.gameObject.name + " destroyed " + gameObject.name, this);
-		//enemyManager.AddKills (killsValue);
+        if (tag == "Bullet")
+        {
+            if (other.tag == "Hostile")
+            {
+                Destroy(other.gameObject);
+                Destroy(gameObject);
+                Debug.Log(other.gameObject.name + " destroyed " + gameObject.name, this);
+                score.AddKill();
+            }
+            else if (other.tag == "Friendly")
+            {
+                Destroy(other.gameObject);
+                Destroy(gameObject);
+                Debug.Log(other.gameObject.name + " destroyed " + gameObject.name, this);
+                score.AddFriendKill();
+            }
+        }
+        else if (tag == "Player")
+        {
+            if (other.tag == "Hostile" || other.tag == "HostileBullet" || other.tag == "Friendly")
+            {
+                game.Lose();
+            }
+            else if (other.tag == "Target")
+            {
+                game.Win();
+            }
+        }
 	}
 }

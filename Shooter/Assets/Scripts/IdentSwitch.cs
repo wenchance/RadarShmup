@@ -10,6 +10,10 @@ public class IdentSwitch : MonoBehaviour {
 	private GameObject Friendly;
 	[SerializeField]
 	private GameObject Bogey;
+    [Range(0,1)]
+    public float hostileChance;
+
+    private GameObject actualObject;
 
 	private Transform player;
 
@@ -23,6 +27,16 @@ public class IdentSwitch : MonoBehaviour {
 	void Start () {
 		player = GameObject.Find ("Player").GetComponent<Transform>() as Transform;
 		audioSource = GetComponent<AudioSource > ();
+        if (Random.value < hostileChance)
+        {
+            actualObject = Hostile;
+            tag = "Hostile";
+        }
+        else
+        {
+            actualObject = Friendly;
+            tag = "Friendly";
+        }
 	}
 	
 	// Update is called once per frame
@@ -38,12 +52,6 @@ public class IdentSwitch : MonoBehaviour {
 			return;
 		Bogey.SetActive (false);
 		hasbeenpinged = true;
-		float randomizer = Random.Range (0f, 1f);
-		if (randomizer >= .5f) {
-			Hostile.SetActive (true);
-			gameObject.GetComponent<AutoMoveAndRotate> ().enabled = false;
-			audioSource.Play ();
-		} else
-			Friendly.SetActive (true);
+        actualObject.SetActive(true);
 	}
 }
